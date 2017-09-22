@@ -33,7 +33,12 @@
    
 
     <!-- Include the image-diff library -->
+
+    <p id="result"></p> 
+
     <script src="quagga.min.js"></script>
+
+    
 
     <script>
         var _scannerIsRunning = false;
@@ -119,8 +124,11 @@
 
 
             Quagga.onDetected(function (result) {
-                console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-
+                //debugger;
+                var r = "Barcode detected and processed :" +result.codeResult.code ;
+                var res1= document.getElementById("result")
+                res1.append(r)
+                return false
                 
             });
 
