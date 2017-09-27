@@ -17,6 +17,9 @@
             color: blue;
             border: 10px border-style blue;
         }
+        p{
+            display: block;
+        }
     </style>
 </head>
 
@@ -28,14 +31,15 @@
     
     <input type="button" id="btn" value="Start/Stop the scanner" />
 
-    <h1>Metro QR scanner</h1> 
+    <h1>Metro Barcode scanner</h1> 
 
    
 
     <!-- Include the image-diff library -->
+    <div>
+    <p id="result" style="display:block"></p> 
 
-    <p id="result"></p> 
-
+    </div>  
     <script src="quagga.min.js"></script>
 
     
@@ -89,7 +93,7 @@
                     return
                 }
 
-                console.log("Initialization finished. Ready to start");
+                console.log("Done with initialization . Ready to start");
                 Quagga.start();
 
                 
@@ -125,10 +129,13 @@
 
             Quagga.onDetected(function (result) {
                 //debugger;
-                var r = "Barcode detected and processed :" +result.codeResult.code ;
+                var r = "Your Barcode Decoded  : " +result.codeResult.code  ;
                 var res1= document.getElementById("result")
+                var k="  ";
+                res1.append(k)
                 res1.append(r)
-                return false
+               
+                alert("You will get your RESULT Click Okay ");
                 
             });
 
