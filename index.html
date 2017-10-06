@@ -29,23 +29,19 @@
         
     </div>
     
-    <input type="button" id="btn" value="Start/Stop the scanner" />
+    <input type="button" id="btn" value="Click to Start Scanning " />
+    <input type="button" id="btn1" value="Do yo want to Scan Again " />
+
 
     <h1>Metro Barcode scanner</h1> 
-
-   
-
-    <!-- Include the image-diff library -->
-    <div>
-    <p id="result" style="display:block"></p> 
-
-    </div>  
+    <p id="result"  style="color:brown"></p> 
+ 
     <script src="quagga.min.js"></script>
-
-    
 
     <script>
         var _scannerIsRunning = false;
+        var xyz=0;
+        var trapp="";
 
         function startScanner() {
             Quagga.init({
@@ -97,7 +93,7 @@
                 Quagga.start();
 
                 
-                _scannerIsRunning = true;
+               // _scannerIsRunning = true;
             });
 
             Quagga.onProcessed(function (result) {
@@ -124,25 +120,27 @@
                 }
             });
 
-            
-
-
-            Quagga.onDetected(function (result) {
+           Quagga.onDetected(function (result) {
                 //debugger;
-                var r = "Your Barcode Decoded  : " +result.codeResult.code  ;
-                var res1= document.getElementById("result")
-                var k="  ";
-                res1.append(k)
-                res1.append(r)
-               
-                alert("You will get your RESULT Click Okay ");
-                
-            });
+                console.log("Your Barcode Result is  : " +result.codeResult.code)
+                   if(trapp!=result.codeResult.code){
+                        if(xyz==0){
+                            console.log("Your Barcode Result is  : " +result.codeResult.code)
+                            var r = "Your Barcode Result is  : " +result.codeResult.code  ;
+                            var res1= document.getElementById("result")
+                            var k="  ";
+                            res1.append(k)
+                            res1.append(r)
+                            xyz = 1;
+                            trapp= result.codeResult.code;  
+                            }
+                        else{
+                            xyz=2;
+                        }
 
-            
+                    }
+            });   
         }
-        
-
 
         // Start/stop scanner
         document.getElementById("btn").addEventListener("click", function () {
@@ -151,6 +149,12 @@
             } else {
                 startScanner();
             }
+        }, false);
+
+        document.getElementById("btn1").addEventListener("click", function () {
+            
+                startScanner();
+            
         }, false);
     </script>
 </body>
