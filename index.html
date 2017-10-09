@@ -42,6 +42,11 @@
         var _scannerIsRunning = false;
         var xyz=0;
         var trapp="";
+        var max_val=0;
+        var bar_code=0;
+        var obj = {
+
+        };
 
         function startScanner() {
             Quagga.init({
@@ -125,21 +130,63 @@
                 console.log("Your Barcode Result is  : " +result.codeResult.code)
                    if(trapp!=result.codeResult.code){
                         if(xyz==0){
+                             
+
                             console.log("Your Barcode Result is  : " +result.codeResult.code)
+                            
+                            if (result.codeResult.code in obj) {
+                                var check=result.codeResult.code;
+                                var val= obj[check];
+                                obj [result.codeResult.code] = val+1;
+                                console.log("value" +obj);
+                            }
+                            else{
+                                obj [result.codeResult.code] = 1;
+                            console.log("opbject is : " +obj);
+                            }
                             var r = "Your Barcode Result is  : " +result.codeResult.code  ;
-                            var res1= document.getElementById("result")
-                            var k="  ";
-                            res1.append(k)
-                            res1.append(r)
+                            for (key in obj){
+                                if (obj[key]>max_val){
+                                    max_val=obj[key];
+                                    bar_code=key;
+                                }
+                            }
+                           
                             xyz = 1;
                             trapp= result.codeResult.code;  
+
                             }
                         else{
-                            xyz=2;
+                            xyz=1;
+                            
+                           
                         }
+                    
 
                     }
+
+                    else{
+                        xyz=0;
+                        var getProperty = function (propertyName) {
+                                    return obj[propertyName];
+                                };
+
+                                var count= obj [trapp];
+                                console.log(" count value : "+count);
+                                obj [result.codeResult.code] = count+1;
+                                console.log(obj);
+
+                    }
+                    
+                    var res1= document.getElementById("result")
+                            var k="  ";
+                            // res1.append(k)
+                            // res1.append(r)
+                            var rest = "Your Barcode Result is  : "+ bar_code+k+"Max is:"+ max_val;
+                            document.getElementById("result").innerHTML = rest;
+
             });   
+        
         }
 
         // Start/stop scanner
@@ -149,13 +196,23 @@
             } else {
                 startScanner();
             }
-        }, false);
+        });
 
         document.getElementById("btn1").addEventListener("click", function () {
-            
+             xyz=0;
+             trapp="";
+             max_val=0;
+             bar_code=0;
+             obj = {
+    
+            };
+            document.getElementById("result").innerHTML = '';
                 startScanner();
             
         }, false);
+
+
+    
     </script>
 </body>
 
